@@ -7,23 +7,21 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
 model Recipe {
-  id         String      @id @default(cuid())
-  name       String
-  description String
+  id             String   @id @default(cuid())
+  name           String
+  description    String
   ingredientList String[]
-  instructions String[]
-  imageURL    String
-  public      Boolean  @default(false)
+  instructions   String[]
+  imageURL       String
+  public         Boolean  @default(false)
 
   userId     String
-  user User  @relation(fields: [userId], references: [id])
+  user       User       @relation(fields: [userId], references: [id])
   familyId   String
-  family     Family  @relation(fields: [familyId], references: [id])
+  family     Family     @relation(fields: [familyId], references: [id])
   categories Category[]
   ratings    Rating[]
-
 }
 
 model Account {
@@ -41,62 +39,69 @@ model Account {
   session_state      String?
   oauth_token_secret String?
   oauth_token        String?
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
-  user User @relation(fields:[userId], references:[id], onDelete: Cascade)
-  }
+}
 
 model Session {
   id           String   @id @default(cuid())
-  sessionToken String   @unique@map("session_token")
+  sessionToken String   @unique @map("session_token")
   userId       String   @map("user_id")
   expires      DateTime
-  user         User     @relation(fields:[userId], references:[id], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
-
 
 model User {
   id            String    @id @default(cuid())
-  name  String?
-  email      String?  @unique
+  name          String?
+  email         String?   @unique
   emailVerified DateTime?
-  description String?
-  city       String?
-  country    String
-  accounts   Account[]
-  sessions   Session[]
-  
-  recipes    Recipe[]
-  familyId   String
-  family     Family  @relation(fields: [familyId], references: [id])
+  accounts      Account[]
+  sessions      Session[]
+
+  recipes  Recipe[]
+  profile  Profile?
+  Family   Family?  @relation(fields: [familyId], references: [id])
+  familyId String?
 }
 
+model Profile {
+  id          String  @id @default(cuid())
+  userId      String  @unique
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  description String?
+  city        String?
+  country     String?
+
+  familyId String
+  family   Family @relation(fields: [familyId], references: [id])
+}
 
 model Family {
-  id      String      @id @default(cuid())
+  id String @id @default(cuid())
 
   people  User[]
   recipes Recipe[]
 
+  Profile Profile[]
 }
 
 model Category {
-  id    String    @id @default(cuid())
-  name  String
+  id   String @id @default(cuid())
+  name String
 
   recipes Recipe[]
 }
 
 model Rating {
-  id      String    @id @default(cuid())
-  review  String
-  stars   Int
+  id     String @id @default(cuid())
+  review String
+  stars  Int
 
-  recipeId   String
-  recipe     Recipe  @relation(fields: [recipeId], references: [id])
+  recipeId String
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
 }
-
-
 
 model VerificationToken {
   id         Int      @id @default(autoincrement())
@@ -105,4 +110,4 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
-  }
+}
