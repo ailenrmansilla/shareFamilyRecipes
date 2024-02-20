@@ -7,6 +7,25 @@ generator client {
   provider = "prisma-client-js"
 }
 
+
+model Recipe {
+  id         String      @id @default(cuid())
+  name       String
+  description String
+  ingredientList String[]
+  instructions String[]
+  imageURL    String
+  public      Boolean  @default(false)
+
+  userId     String
+  user User  @relation(fields: [userId], references: [id])
+  familyId   String
+  family     Family  @relation(fields: [familyId], references: [id])
+  categories Category[]
+  ratings    Rating[]
+
+}
+
 model Account {
   id                 String  @id @default(cuid())
   userId             String  @map("user_id")
@@ -38,38 +57,23 @@ model Session {
 
 model User {
   id            String    @id @default(cuid())
-  firstName  String?
-  lastName   String?
+  name  String?
   email      String?  @unique
   emailVerified DateTime?
   description String?
   city       String?
-  country    String?
-  accounts      Account[]
-  sessions      Session[]
-  familyId   Int
+  country    String
+  accounts   Account[]
+  sessions   Session[]
+  
+  recipes    Recipe[]
+  familyId   String
   family     Family  @relation(fields: [familyId], references: [id])
 }
 
-
-model Recipe {
-  id         Int       @id @default(autoincrement())
-  name       String
-  description String
-  ingredientList String[]
-  instructions String[]
-  imageURL    String
-  public      Boolean  @default(false)
-
-  familyId   Int
-  family     Family  @relation(fields: [familyId], references: [id])
-  categories Category[]
-  ratings    Rating[]
-
-}
 
 model Family {
-  id      Int      @id @default(autoincrement())
+  id      String      @id @default(cuid())
 
   people  User[]
   recipes Recipe[]
@@ -77,18 +81,18 @@ model Family {
 }
 
 model Category {
-  id    Int    @id @default(autoincrement())
+  id    String    @id @default(cuid())
   name  String
 
   recipes Recipe[]
 }
 
 model Rating {
-  id      Int    @id @default(autoincrement())
+  id      String    @id @default(cuid())
   review  String
   stars   Int
 
-  recipeId   Int
+  recipeId   String
   recipe     Recipe  @relation(fields: [recipeId], references: [id])
 }
 
