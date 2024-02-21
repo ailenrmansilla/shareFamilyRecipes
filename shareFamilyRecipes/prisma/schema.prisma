@@ -15,12 +15,12 @@ model Recipe {
   instructions   String[]
   imageURL       String
   public         Boolean  @default(false)
+  category       String[]
 
   userId     String
   user       User       @relation(fields: [userId], references: [id])
   familyId   String
   family     Family     @relation(fields: [familyId], references: [id])
-  categories Category[]
   ratings    Rating[]
 }
 
@@ -86,13 +86,6 @@ model Family {
   recipes Recipe[]
 
   Profile Profile[]
-}
-
-model Category {
-  id   String @id @default(cuid())
-  name String
-
-  recipes Recipe[]
 }
 
 model Rating {

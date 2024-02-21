@@ -6,16 +6,18 @@ const Draft: React.FC = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
-  
+
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
         const body = { title, content };
-        await fetch('/api/post', {
+        // double check that fetch
+        await fetch('/src/api/post', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body),
         });
+        // await Router.push('/src/app/recipes');
         await Router.push('/drafts');
       } catch (error) {
         console.error(error);
