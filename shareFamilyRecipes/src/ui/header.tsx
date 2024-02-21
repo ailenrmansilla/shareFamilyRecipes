@@ -11,6 +11,9 @@ export async function Header(){
         <Link href="/app/recipes/">
             <a className="discoverLink"> Discover </a>
         </Link>
+        <Link href="/app/about/">
+            <a className="discoverLink"> About Us </a>
+        </Link>
         <Link href="/api/auth/signin">
             <a className="loginLink" href='/'>Log in</a>
         </Link>
@@ -21,8 +24,11 @@ export async function Header(){
         <Link href="/app/recipes/">
             <a className="discoverLink"> Discover </a>
         </Link>
-        <Link href="/api/auth/signin">
-            <a className="loginLink" href='/'>Log in</a>
+        <Link href="/app/about/">
+            <a className="discoverLink"> About Us </a>
+        </Link>
+        <Link href="/app/profile">
+            <a className="profileLink" href='/'>My Profile</a>
         </Link>
         <p>
           {session.user.name} ({session.user.email})
