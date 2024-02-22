@@ -1,6 +1,6 @@
 export default async function Page(){
     // just text
     return(
-        <p>Hello world</p>
+        <p>About Share Family Recipes</p>
     );
 }

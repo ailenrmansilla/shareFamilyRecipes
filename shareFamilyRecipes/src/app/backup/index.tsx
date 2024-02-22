@@ -1,14 +1,14 @@
-import React from "react"
-import { GetStaticProps } from "next"
-import Layout from "../ui/Layout"
+// import React from "react"
+// import { GetStaticProps } from "next"
+// import Layout from "../ui/Layout"
 
-export default function Page(){
-  return(
-    <main>
-      <p>Home page</p>
-    </main>
-  )
-}
+// export default function Page(){
+//   return(
+//     <main>
+//       <p>Home page</p>
+//     </main>
+//   )
+// }
 
 // import Post, { PostProps } from "../ui/Post"
 
