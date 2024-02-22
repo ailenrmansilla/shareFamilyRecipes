@@ -1,10 +1,10 @@
 // import LoginForm from '@/app/ui/login-form';
 
-export default async function LoginPage(){
+export default function LoginPage(){
 return (
     <main className="loginPage">
       <div className="loginPageForm">
-        {/* <LoginForm /> */}
+        <p>Log in</p>
       </div>
     </main>
   );

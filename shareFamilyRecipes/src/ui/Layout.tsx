@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import {Header} from "@/ui/header";
+import Navbar from "@/ui/navbar";
 
 type Props = {
   children: ReactNode;
@@ -13,7 +13,7 @@ const Layout: React.FC<Props> = (props) => (
   // after that, we have the JSX code that will be rendered by the component when used
   // This code typically uses the received props to construct the UI elements
   <div>
-    <Header />
+    <Navbar />
     <div className="layout">{props.children}</div>
   </div>
 );
