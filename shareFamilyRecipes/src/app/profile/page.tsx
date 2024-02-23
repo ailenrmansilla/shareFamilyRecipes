@@ -22,6 +22,9 @@ export default async function Page() {
       {/* {tweets.map((tweet: any, idx: number) => (
         <Tweet key={idx} tweet={tweet} />
       ))} */}
+
+      {/* IMPORT RELATED RECIPES, PUBLIC OR PRIVATE. PLUS BUTTONS TO EDIT OR DELETE THEM */}
+      {/* BUTTON TO ADD NEW RECIPE */}
     </>
   );
 }

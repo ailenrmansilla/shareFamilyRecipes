@@ -16,7 +16,9 @@ import prisma from './prisma';
 export const authHandler: NextAuthOptions = {
   providers: [
     CredentialsProvider({
-      name: "Sign in",
+      // changed name, added id
+      id: "credentials",
+      name: "Credentials",
       credentials: {
         email: {
           label: "Email",
@@ -37,9 +39,15 @@ export const authHandler: NextAuthOptions = {
         //We are going to use a simple === operator
         //In production DB, passwords should be encrypted using something like bcrypt...
         if (dbUser && dbUser.password === credentials.password) {
-          // I removed the id here
-          const { password, emailVerified, ...dbUserWithoutPassword } = dbUser;
-          return dbUserWithoutPassword as User;
+          // I removed the id in next line because of an error
+          // const { password, emailVerified, ...dbUserWithoutPassword } = dbUser;
+          // return dbUserWithoutPassword as User;
+          
+          // NEW CODE
+          return {
+            ...dbUser,
+            id: dbUser.id,
+          };
         }
 
         return null;
@@ -58,7 +66,6 @@ export const authHandler: NextAuthOptions = {
 
 export async function loginIsRequiredServer() {
   const session = await getServerSession(authHandler);
-  // this one was redirect("/")
   if (!session) return redirect("/");
 }
 
